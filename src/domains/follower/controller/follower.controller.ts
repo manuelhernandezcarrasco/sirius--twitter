@@ -12,7 +12,7 @@ const service: FollowerService = new FollowerServiceImpl(new FollowerRepositoryI
  * @swagger
  * tags: 
  *  name: Follow
- * /api/follow/{user_id}:
+ * /api/follower/follow/{user_id}:
  *  post:
  *    parameters: 
  *    - in: path
@@ -43,7 +43,7 @@ followerRouter.post('/follow/:user_id', async (req: Request, res: Response) => {
  * @swagger
  * tags: 
  *  name: Follow
- * /api/unfollow/{user_id}:
+ * /api/follower/unfollow/{user_id}:
  *  post:
  *    parameters: 
  *    - in: path

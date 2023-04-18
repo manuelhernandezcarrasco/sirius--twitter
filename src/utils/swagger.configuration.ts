@@ -64,6 +64,15 @@ const swaggerDefinition: OAS3Definition = {
                     },
                 },
             },
+            manageReactionDTO: {
+                type: "object",
+                required: ["type"],
+                properties: {
+                    type: {
+                        type: "string",
+                    },
+                },
+            },
         },
     },
 };
@@ -77,6 +86,7 @@ export const swaggerOptions: OAS3Options = {
         'src/domains/health/controller/health.controller.ts',
         'src/domains/post/controller/post.controller.ts',
         'src/domains/user/controller/user.controller.ts',
+        'src/domains/reaction/controller/reaction.controller.ts',
     ],
 } 
   
