@@ -11,11 +11,21 @@ export class PostRepositoryImpl implements PostRepository {
   async create(userId: string, data: CreatePostInputDTO): Promise<PostDTO> {
     const post = await this.db.post.create({
       data: {
-        authorId: userId,
-        ...data,
+        content: data.content,
+        images: data.images,
+        author: {
+          connect: {
+            id: userId,
+          },
+        }, 
+        fatherPost: data.fatherPostId? {
+          connect: {
+            id: data.fatherPostId,
+          },
+        } : undefined,
       },
     });
-    return new PostDTO(post);
+    return new PostDTO(post as PostDTO);
   }
 
   async getAllByDatePaginated(options: CursorPagination, userId: string): Promise<PostDTO[]> {
@@ -53,7 +63,7 @@ export class PostRepositoryImpl implements PostRepository {
         ]
       }
     });
-    return posts.map(post => new PostDTO(post));
+    return posts.map(post => new PostDTO(post as PostDTO));
   }
 
   async delete(postId: string): Promise<void> {
@@ -75,6 +85,21 @@ export class PostRepositoryImpl implements PostRepository {
         content: true,
         images: true,
         createdAt: true,
+        comments: {
+          take: 10,
+          select: {
+            id: true,
+            authorId: true,
+            content: true,
+            images: true,
+            createdAt: true,
+          },
+          orderBy: {
+            reactions: {
+              _count: 'desc',
+            },
+          },
+        },
         author: {
           select: {
             private: true,
@@ -132,6 +157,6 @@ export class PostRepositoryImpl implements PostRepository {
         },
       },
     });
-    return ( !posts[0].author.private || posts[0].author.followers.length ) ? posts.map(post => new PostDTO(post)) : null;
+    return posts && ( !posts[0].author.private || posts[0].author.followers.length ) ? posts.map(post => new PostDTO(post)) : null;
   }
 }

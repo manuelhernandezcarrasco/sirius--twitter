@@ -19,11 +19,11 @@ const service: UserService = new UserServiceImpl(new UserRepositoryImpl(db));
  * /api/user:
  *  get:
  *    parameters: 
- *    - in: path
+ *    - in: query
  *      name: limit
  *      schema:
  *        type: integer
- *    - in: path
+ *    - in: query
  *      name: skip
  *      schema:
  *        type: string

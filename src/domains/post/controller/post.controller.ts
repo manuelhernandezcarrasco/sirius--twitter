@@ -21,15 +21,15 @@ const service: PostService = new PostServiceImpl(new PostRepositoryImpl(db));
  * /api/post:
  *  get:
  *    parameters: 
- *    - in: path
+ *    - in: query
  *      name: limit
  *      schema:
  *        type: integer
- *    - in: path
+ *    - in: query
  *      name: before
  *      schema:
  *        type: string
- *    - in: path
+ *    - in: query
  *      name: after
  *      schema:
  *        type: string
@@ -93,15 +93,15 @@ postRouter.get('/:postId', async (req: Request, res: Response) => {
  *    - in: path
  *      name: userId
  *      required: true
- *    - in: path
+ *    - in: query
  *      name: limit
  *      schema:
  *        type: integer
- *    - in: path
+ *    - in: query
  *      name: before
  *      schema:
  *        type: string
- *    - in: path
+ *    - in: query
  *      name: after
  *      schema:
  *        type: string
