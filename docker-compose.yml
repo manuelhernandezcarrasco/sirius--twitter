@@ -40,4 +40,4 @@ server:
   links:
     - db
 volumes:
-db-data:
+  db-data:

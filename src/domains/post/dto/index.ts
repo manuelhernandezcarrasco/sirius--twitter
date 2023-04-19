@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
+import { ArrayMaxSize, IsNotEmpty, IsOptional, IsString, IsUUID, MaxLength } from 'class-validator';
 
 export class CreatePostInputDTO {
   @IsString()
@@ -7,8 +7,12 @@ export class CreatePostInputDTO {
   content!: string;
 
   @IsOptional()
-  @MaxLength(4)
+  @ArrayMaxSize(4)
   images?: string[];
+
+  @IsOptional()
+  @IsUUID()
+  fatherPostId?: string;
 }
 
 export class PostDTO {
@@ -19,6 +23,8 @@ export class PostDTO {
     this.content = post.content;
     this.images = post.images;
     this.createdAt = post.createdAt;
+    this.fatherPostId = post.fatherPostId;
+    this.comments = post.comments;
   }
 
   id: string;
@@ -26,4 +32,6 @@ export class PostDTO {
   content: string;
   images: string[];
   createdAt: Date;
+  comments?: PostDTO[];
+  fatherPostId?: string;
 }

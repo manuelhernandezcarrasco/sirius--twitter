@@ -62,6 +62,9 @@ const swaggerDefinition: OAS3Definition = {
                     images: {
                         type: ["string"],
                     },
+                    fatherPostId: {
+                        type: "string",
+                    },
                 },
             },
             manageReactionDTO: {
