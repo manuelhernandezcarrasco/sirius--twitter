@@ -8,6 +8,58 @@ import { CreatePostInputDTO, PostDTO } from '../dto';
 export class PostRepositoryImpl implements PostRepository {
   constructor(private readonly db: PrismaClient) {}
 
+  // get posts and 
+  async getUserComments(userId: string, authorId: string): Promise<PostDTO[]> {
+    const posts = await this.db.post.findMany({
+      where: {
+        comments: {
+          some: {
+            authorId: authorId,
+          },
+        },
+      },
+      select: {
+        id: true,
+        authorId: true,
+        content: true,
+        images: true,
+        createdAt: true,
+        comments: {
+          where: {
+            authorId: authorId,
+          },
+          select: {
+            id: true,
+            authorId: true,
+            content: true,
+            images: true,
+            createdAt: true,
+          },
+        },
+        author: {
+          select: {
+            private: true,
+            followers: {
+              where: {
+                followerId: userId,
+              },
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    const comments: PostDTO[] = [];
+    posts.map(post => {
+      if (!post.author.private || post.authorId === userId || post.author.followers) {
+        comments.push(new PostDTO(post));
+      }
+    });
+    return comments;
+  }
+
   async create(userId: string, data: CreatePostInputDTO): Promise<PostDTO> {
     const post = await this.db.post.create({
       data: {
@@ -74,6 +126,7 @@ export class PostRepositoryImpl implements PostRepository {
     });
   }
 
+  // get only posts where the user has a public profile, the user is following the post owner or the user is the post owner
   async getById(postId: string, userId?: string): Promise<PostDTO | null> {
     const post = await this.db.post.findUnique({
       where: {
@@ -115,9 +168,10 @@ export class PostRepositoryImpl implements PostRepository {
         },
       },
     });
-    return post && ( userId && ( !post.author.private || post.author.followers.length )) ? new PostDTO(post) : null;
+    return post && ( userId && ( !post.author.private || post.authorId === userId || post.author.followers.length )) ? new PostDTO(post) : null;
   }
 
+  // get only posts where the user has a public profile, the user is following the post owner or the user is the post owner
   async getByAuthorId(userId: string, authorId: string, options: CursorPagination): Promise<PostDTO[] | null> {
     const posts = await this.db.post.findMany({
       cursor: options.before || options.after ? {
@@ -157,6 +211,6 @@ export class PostRepositoryImpl implements PostRepository {
         },
       },
     });
-    return posts && ( !posts[0].author.private || posts[0].author.followers.length ) ? posts.map(post => new PostDTO(post)) : null;
+    return posts && ( !posts[0].author.private || posts[0].authorId === userId || posts[0].author.followers.length ) ? posts.map(post => new PostDTO(post)) : null;
   }
 }

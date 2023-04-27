@@ -2,11 +2,17 @@ import { CreatePostInputDTO, PostDTO } from '../dto';
 import { PostRepository } from '../repository';
 import { PostService } from '.';
 import { validate } from 'class-validator';
-import { ForbiddenException, NotFoundException } from '@utils';
+import { BadRequestException, ForbiddenException, NotFoundException } from '@utils';
 import { CursorPagination } from '@types';
 
 export class PostServiceImpl implements PostService {
   constructor(private readonly repository: PostRepository) {}
+
+  async getUserComments(userId: string, authorId: string): Promise<PostDTO[]> {
+    const comments = await this.repository.getUserComments(userId, authorId);
+    if (!comments) throw new NotFoundException('comment');
+    return comments;
+  }
 
   createPost(userId: string, data: CreatePostInputDTO): Promise<PostDTO> {
     validate(data);

@@ -2,6 +2,7 @@ import { CursorPagination } from '@types';
 import { CreatePostInputDTO, PostDTO } from '../dto';
 
 export interface PostRepository {
+  getUserComments(userId: string, authorId: string): Promise<PostDTO[]>;
   create(userId: string, data: CreatePostInputDTO): Promise<PostDTO>;
   getAllByDatePaginated(options: CursorPagination, userId: string): Promise<PostDTO[]>;
   delete(postId: string): Promise<void>;

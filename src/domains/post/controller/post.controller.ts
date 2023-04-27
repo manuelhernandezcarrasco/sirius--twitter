@@ -186,3 +186,34 @@ postRouter.delete('/:postId', async (req: Request, res: Response) => {
 
   return res.status(HttpStatus.OK);
 });
+
+/**
+ * @swagger
+ * tags: 
+ *  name: Post
+ * /api/post/comments/{user_id}:
+ *  get:
+ *    parameters: 
+ *    - in: path
+ *      name: user_id
+ *      required: true
+ *    summary: get user comments with post
+ *    security:
+ *      - auth: []
+ *    tags: [Post]
+ *    responses:
+ *      200: 
+ *        description: get user comments
+ *      404:
+ *        description: comment not found
+ *      500:
+ *        description: internal server error
+ */
+postRouter.get('/comment/:user_id', async(req: Request, res: Response) => {
+  const { userId } = res.locals.context;
+  const {user_id} = req.params;
+
+  const comments = await service.getUserComments(userId, user_id);
+
+  return res.status(HttpStatus.OK).json(comments);
+});
