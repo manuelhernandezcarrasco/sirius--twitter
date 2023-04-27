@@ -1,7 +1,7 @@
 services:
   db:
     image: postgres:alpine
-    container_name: db
+    container_name: db_twitter
     restart: always
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
@@ -16,28 +16,28 @@ services:
       interval: 1s
       timeout: 1s
       retries: 15
-server:
-  build:
-    context: .
-    dockerfile: Dockerfile
-    target: dev
-  container_name: server
-  restart: always
-  tty: true
-  environment:
-    - DATABASE_URL=${DOCKER_DATABASE_URL}
-    - PORT=8080
-  env_file:
-    - .envrc
-  ports:
-    - '8080:8080'
-  volumes: # if there's any new files containing sources, add them as volumes
-    - ./src:/app/src
-    - ./prisma:/app/prisma
-  depends_on:
-    db:
-      condition: service_healthy
-  links:
-    - db
+# server:
+#   build:
+#     context: .
+#     dockerfile: Dockerfile
+#     target: dev
+#   container_name: server
+#   restart: always
+#   tty: true
+#   environment:
+#     - DATABASE_URL=${DOCKER_DATABASE_URL}
+#     - PORT=8080
+#   env_file:
+#     - .envrc
+#   ports:
+#     - '8080:8080'
+#   volumes: # if there's any new files containing sources, add them as volumes
+#     - ./src:/app/src
+#     - ./prisma:/app/prisma
+#   depends_on:
+#     db:
+#       condition: service_healthy
+#   links:
+#     - db
 volumes:
   db-data:
