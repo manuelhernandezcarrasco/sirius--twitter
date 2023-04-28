@@ -2,6 +2,7 @@ import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString, IsStrongPassword 
 
 export class TokenDTO {
   token!: string;
+  uploadURL?: string;
 }
 
 export class SignupInputDTO {
@@ -23,10 +24,14 @@ export class SignupInputDTO {
   @IsBoolean()
   private?: boolean;
 
-  constructor(email: string, username: string, password: string) {
+  @IsOptional()
+  profilePicture?: string;
+
+  constructor(email: string, username: string, password: string, profilePicture?: string) {
     this.email = email
     this.password = password
     this.username = username
+    this.profilePicture = profilePicture
   }
 }
 

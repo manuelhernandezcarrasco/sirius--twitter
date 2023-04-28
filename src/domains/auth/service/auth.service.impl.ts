@@ -1,7 +1,6 @@
 import { UserRepository } from '@domains/user/repository';
 import { checkPassword, encryptPassword, generateAccessToken, ConflictException, NotFoundException, UnauthorizedException } from '@utils';
-
-
+import { BucketFolders, generateUploadURL } from '@utils/s3';
 import { SignupInputDTO, TokenDTO, LoginInputDTO } from '../dto';
 import { AuthService } from './auth.service';
 
@@ -14,10 +13,13 @@ export class AuthServiceImpl implements AuthService {
 
     const encryptedPassword = await encryptPassword(data.password);
 
-    const user = await this.repository.create({ ...data, password: encryptedPassword });
+    let uploadURL: string;
+    if (data.profilePicture) uploadURL = await generateUploadURL(data.profilePicture, BucketFolders.PROFILE);
+
+    const user = await this.repository.create({ ...data, password: encryptedPassword});
     const token = generateAccessToken({ userId: user.id });
 
-    return { token } as TokenDTO;
+    return { token, uploadURL: data.profilePicture? uploadURL! : null } as TokenDTO;
   }
 
   async login(data: LoginInputDTO): Promise<TokenDTO> {

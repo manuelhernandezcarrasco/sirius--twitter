@@ -5,12 +5,14 @@ export class UserDTO {
     this.name = user.name;
     this.createdAt = user.createdAt;
     this.private = user.private;
+    this.profilePicture = user.profilePicture;
   }
 
   id: string;
   name: string | null;
   private: boolean;
   createdAt: Date;
+  profilePicture?: string | null;
 }
 
 export class ExtendedUserDTO extends UserDTO {
