@@ -1,9 +1,10 @@
-import { CreatePostInputDTO, PostDTO } from '../dto';
+import { CreatePostInputDTO, CreatePostResponseDTO, PostDTO } from '../dto';
 import { PostRepository } from '../repository';
 import { PostService } from '.';
 import { validate } from 'class-validator';
 import { BadRequestException, ForbiddenException, NotFoundException } from '@utils';
 import { CursorPagination } from '@types';
+import { BucketFolders, generateUploadURL } from '@utils/s3';
 
 export class PostServiceImpl implements PostService {
   constructor(private readonly repository: PostRepository) {}
@@ -14,9 +15,14 @@ export class PostServiceImpl implements PostService {
     return comments;
   }
 
-  createPost(userId: string, data: CreatePostInputDTO): Promise<PostDTO> {
+  async createPost(userId: string, data: CreatePostInputDTO): Promise<CreatePostResponseDTO> {
     validate(data);
-    return this.repository.create(userId, data);
+    let uploadURLs: string[] = [];
+    data.images?.map(async(image) => {
+      uploadURLs.push(await generateUploadURL(image, BucketFolders.POST));
+    })
+    const post = await this.repository.create(userId, data);
+    return {...post, uploadURLs: data.images? uploadURLs : undefined}
   }
 
   async deletePost(userId: string, postId: string): Promise<void> {

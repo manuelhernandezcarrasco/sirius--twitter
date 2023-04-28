@@ -35,3 +35,12 @@ export class PostDTO {
   comments?: PostDTO[];
   fatherPostId?: string;
 }
+
+export class CreatePostResponseDTO extends PostDTO {
+  constructor(post: CreatePostResponseDTO) {
+    super(post)
+    this.uploadURLs = post.uploadURLs;
+  }
+
+  uploadURLs?: string[];  
+}
