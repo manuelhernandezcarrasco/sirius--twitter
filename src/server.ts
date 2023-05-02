@@ -5,12 +5,28 @@ import cors from 'cors';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
-import { Constants, NodeEnv, Logger } from '@utils';
+import { Constants, NodeEnv, Logger, socketAuth } from '@utils';
 import { router } from '@router';
 import { ErrorHandling } from '@utils/errors';
 import { swaggerOptions } from '@utils/swagger.configuration';
+import { Server } from 'socket.io';
+import http from "http";
+import { chatSocket } from '@domains/chat/chat.websocket';
 
 const app = express();
+const server = http.createServer(app);
+export const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
+
+io.use((socket, next) => {
+  socketAuth(socket, next);
+});
+
+chatSocket();
 
 // Set up request logger
 if (Constants.NODE_ENV === NodeEnv.DEV) {
@@ -40,6 +56,6 @@ app.use('/api', router);
 
 app.use(ErrorHandling);
 
-app.listen(Constants.PORT, () => {
+server.listen(Constants.PORT, () => {
   Logger.info(`Server listening on port ${Constants.PORT}`);
 });
