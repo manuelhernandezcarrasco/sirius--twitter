@@ -10,7 +10,7 @@ import { UserService, UserServiceImpl } from '../service';
 export const userRouter = Router();
 
 // Use dependency injection
-const service: UserService = new UserServiceImpl(new UserRepositoryImpl(db));
+export const userService: UserService = new UserServiceImpl(new UserRepositoryImpl(db));
 
 /**
  * @swagger
@@ -41,7 +41,7 @@ userRouter.get('/', async (req: Request, res: Response) => {
   const { userId } = res.locals.context;
   const { limit, skip } = req.query as Record<string, string>;
 
-  const users = await service.getUserRecommendations(userId, { limit: Number(limit), skip: Number(skip) });
+  const users = await userService.getUserRecommendations(userId, { limit: Number(limit), skip: Number(skip) });
 
   return res.status(HttpStatus.OK).json(users);
 });
@@ -65,7 +65,7 @@ userRouter.get('/', async (req: Request, res: Response) => {
 userRouter.get('/me', async (req: Request, res: Response) => {
   const { userId } = res.locals.context;
 
-  const user = await service.getUser(userId);
+  const user = await userService.getUser(userId);
 
   return res.status(HttpStatus.OK).json(user);
 });
@@ -93,7 +93,7 @@ userRouter.get('/me', async (req: Request, res: Response) => {
 userRouter.get('/:userId', async (req: Request, res: Response) => {
   const { userId: otherUserId } = req.params;
 
-  const user = await service.getUser(otherUserId);
+  const user = await userService.getUser(otherUserId);
 
   return res.status(HttpStatus.OK).json(user);
 });
@@ -117,7 +117,7 @@ userRouter.get('/:userId', async (req: Request, res: Response) => {
 userRouter.delete('/', async (req: Request, res: Response) => {
   const { userId } = res.locals.context;
 
-  await service.deleteUser(userId);
+  await userService.deleteUser(userId);
 
   return res.status(HttpStatus.OK);
 });

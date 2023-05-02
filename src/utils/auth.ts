@@ -25,6 +25,19 @@ export const withAuth = (req: Request, res: Response, next: () => any) => {
   });
 };
 
+export const socketAuth = (socket: any, next: (err?: any) => any) => {
+
+  const token  = (socket.handshake.headers?.authorization as string | undefined)?.split(' ')[1] || null;
+
+  if (!token) return next(new Error('MISSING_TOKEN'));
+
+  jwt.verify(token, Constants.TOKEN_SECRET, (err: any, context: any) => {
+    if (err) return next(new Error('INVALID_TOKEN'));
+    socket.user = context;
+    return next();
+  })
+}
+
 export const encryptPassword = (password: string) => {
   return bcrypt.hash(password, 10);
 };

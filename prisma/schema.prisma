@@ -34,6 +34,8 @@ model User {
   posts     Post[]
   follows   Follow[]   @relation(name: "follows")
   followers Follow[]   @relation(name: "followers")
+  chatsStarted Chat[] @relation(name: "chatsStarted")
+  chatsReceived Chat[] @relation(name: "chatsReceived")
 }
 
 model Follow {
@@ -83,6 +85,33 @@ model Reaction {
   post    Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@unique([postId, reactorId, type])
+}
+
+model Chat {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  user1Id String @db.Uuid
+  user2Id String @db.Uuid
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user1 User @relation(name: "chatsStarted",fields: [user1Id], references: [id])
+  user2 User @relation(name: "chatsReceived", fields: [user2Id], references: [id])
+  messages Message[]
+
+  @@unique([user1Id, user2Id])
+}
+
+model Message {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  createAt DateTime @default(now())
+  senderId String
+  message String
+  chatId String @db.Uuid
+
+  chat Chat @relation(fields: [chatId], references: [id])
 }
 
 enum Reactions {
