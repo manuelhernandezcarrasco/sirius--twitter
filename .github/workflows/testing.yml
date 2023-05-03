@@ -1,6 +1,6 @@
 name: Unit Testing
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   build:
@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
+        node-version: [18.x]
 
     steps:
       - uses: actions/checkout@v3
