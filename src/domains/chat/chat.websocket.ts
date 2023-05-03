@@ -1,5 +1,5 @@
-import { userService } from '@domains/user';
-import { io } from 'server';
+import { userService } from '../../domains/user';
+import { io } from '../../server';
 
 export const chatSocket = () => {   
      io.on("connection", (socket: any) => {
@@ -14,9 +14,9 @@ export const chatSocket = () => {
         });
     
         socket.on("send_message", async({message, createdAt}:{message:any, createdAt:any}) => {            
-            await userService.postMessage(socket.user.userId, socket.user.chatId, {message, createdAt});
+            const response = await userService.postMessage(socket.user.userId, socket.user.chatId, {message, createdAt});
             socket.to(socket.user.chatId).emit("new message", {
-                message: message,
+                ...response,
             });
         });
 

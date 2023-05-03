@@ -1,7 +1,7 @@
-import { SignupInputDTO } from '@domains/auth/dto';
-import { CreateMessageDTO } from '@domains/chat/dto';
+import { SignupInputDTO } from '../../../domains/auth/dto';
+import { CreateMessageDTO } from '../../../domains/chat/dto';
 import { PrismaClient } from '@prisma/client';
-import { OffsetPagination } from '@types';
+import { OffsetPagination } from '../../../types';
 import { ExtendedUserDTO, UserDTO } from '../dto';
 import { UserRepository } from './user.repository';
 

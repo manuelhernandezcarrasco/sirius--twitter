@@ -2,8 +2,8 @@ import { Request, Response, Router } from 'express';
 import HttpStatus from 'http-status';
 import "express-async-errors";
 
-import { db, BodyValidation } from '@utils';
-import { UserRepositoryImpl } from '@domains/user/repository';
+import { db, BodyValidation } from '../../../utils';
+import { UserRepositoryImpl } from '../../../domains/user/repository';
 
 import { AuthService, AuthServiceImpl } from '../service';
 import { LoginInputDTO, SignupInputDTO } from '../dto';

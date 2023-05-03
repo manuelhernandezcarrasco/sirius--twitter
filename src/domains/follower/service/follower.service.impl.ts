@@ -1,4 +1,4 @@
-import { BadRequestException } from "@utils";
+import { BadRequestException } from "../../../utils";
 import { FollowDTO } from "../dto";
 import { FollowerRepository } from "../repository";
 import { FollowerService } from "./follower.service";

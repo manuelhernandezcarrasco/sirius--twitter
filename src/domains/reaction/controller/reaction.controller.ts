@@ -1,4 +1,4 @@
-import { BadRequestException, BodyValidation, db } from "@utils";
+import { BadRequestException, BodyValidation, db } from "../../../utils";
 import { Request, Response, Router } from "express";
 import httpStatus from "http-status";
 import { ManageReactionDTO, Reactions } from "../dto";

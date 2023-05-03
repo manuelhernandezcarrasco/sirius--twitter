@@ -1,4 +1,4 @@
-import { BadRequestException, NotFoundException } from "@utils";
+import { BadRequestException, NotFoundException } from "../../../utils";
 import { ReactionDTO, Reactions } from "../dto";
 import { ReactionRepository } from "../repository";
 import { ReactionService } from "./reaction.service";

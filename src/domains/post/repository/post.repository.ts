@@ -1,4 +1,4 @@
-import { CursorPagination } from '@types';
+import { CursorPagination } from '../../../types';
 import { CreatePostInputDTO, PostDTO } from '../dto';
 
 export interface PostRepository {

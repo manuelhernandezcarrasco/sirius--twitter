@@ -1,3 +1,33 @@
+// {
+//   "compilerOptions": {
+//     "module": "commonjs",
+//     "declaration": true,
+//     "removeComments": true,
+//     "emitDecoratorMetadata": true,
+//     "experimentalDecorators": true,
+//     "allowSyntheticDefaultImports": true,
+//     "esModuleInterop": true,
+//     "target": "ES2022",
+//     "sourceMap": true,
+//     "outDir": "./dist",
+//     "baseUrl": "./src",
+//     "rootDir": "./src",
+//     "moduleResolution": "node",
+//     "incremental": true,
+//     "skipLibCheck": true,
+//     "strict": true,
+//     "strictNullChecks": true,
+//     "noImplicitAny": true,
+//     "forceConsistentCasingInFileNames": true,
+//     "noFallthroughCasesInSwitch": true,
+//     "paths": {
+//       "@*": ["./*"]
+//     }
+//   },
+//   "lib": ["es2022"],
+//   "include": ["src/**/*"],
+//   "exclude": ["node_modules"]
+// }
 {
   "compilerOptions": {
     "module": "commonjs",
@@ -6,25 +36,17 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "target": "ES2022",
+    "target": "es2022",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./src",
-    "rootDir": "./src",
-    "moduleResolution": "node",
+    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "noImplicitAny": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@*": ["./*"]
-    }
-  },
-  "lib": ["es2022"],
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false 
+  }
 }
+

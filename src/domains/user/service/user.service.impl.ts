@@ -1,7 +1,7 @@
-import { CreateMessageDTO } from '@domains/chat/dto';
-import { BadRequestException, NotFoundException } from '@utils/errors';
+import { CreateMessageDTO } from '../../../domains/chat/dto';
+import { BadRequestException, NotFoundException } from '../../../utils/errors';
 import { validate } from 'class-validator';
-import { OffsetPagination } from 'types';
+import { OffsetPagination } from '../../../types';
 import { UserDTO } from '../dto';
 import { UserRepository } from '../repository';
 import { UserService } from './user.service';

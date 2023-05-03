@@ -1,6 +1,6 @@
-import { UserRepository } from '@domains/user/repository';
-import { checkPassword, encryptPassword, generateAccessToken, ConflictException, NotFoundException, UnauthorizedException } from '@utils';
-import { BucketFolders, generateUploadURL } from '@utils/s3';
+import { UserRepository } from '../../../domains/user/repository';
+import { checkPassword, encryptPassword, generateAccessToken, ConflictException, NotFoundException, UnauthorizedException } from '../../../utils';
+import { BucketFolders, generateUploadURL } from '../../../utils/s3';
 import { SignupInputDTO, TokenDTO, LoginInputDTO } from '../dto';
 import { AuthService } from './auth.service';
 
