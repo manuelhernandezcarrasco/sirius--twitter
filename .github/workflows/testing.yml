@@ -18,4 +18,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
+        env:
+          database_url: ""
       - run: npm test
