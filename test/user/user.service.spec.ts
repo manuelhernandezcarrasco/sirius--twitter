@@ -1,22 +1,20 @@
 import { UserService, UserServiceImpl } from '../../src/domains/user/service';
 import { UserRepository, UserRepositoryImpl } from '../../src/domains/user/repository';
-import { PrismaTestService, sync, teardown } from '../database.test.config';
 import { UserDTO } from '../../src/domains/user/dto';
+import { db } from '../../src/utils'
 
 describe('User Service Unit Testing', () => {
     let userService: UserService;
     let userRepository: UserRepository;
-    let db: any;
 
     beforeEach(async() => {
-        db = new PrismaTestService();
-        sync();
         userRepository = new UserRepositoryImpl(db);
         userService = new UserServiceImpl(userRepository);
     });
 
     afterEach(async() => {
-        teardown(db);
+        await db.$executeRawUnsafe(`DROP SCHEMA IF EXISTS CASCADE;`);
+        await db.$disconnect();
     });
 
     describe("getUser", () => {

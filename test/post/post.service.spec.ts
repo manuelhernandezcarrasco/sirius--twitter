@@ -1,22 +1,20 @@
 import { PostService, PostServiceImpl } from '../../src/domains/post/service';
 import { PostRepository, PostRepositoryImpl } from '../../src/domains/post/repository';
-import { PrismaTestService, sync, teardown } from '../database.test.config';
 import { PostDTO } from 'src/domains/post/dto';
+import { db } from '../../src/utils'
 
 describe('User Service Unit Testing', () => {
     let postService: PostService;
     let postRepository: PostRepository;
-    let db: any;
 
     beforeEach(async() => {
-        db = new PrismaTestService();
-        sync();
         postRepository = new PostRepositoryImpl(db);
         postService = new PostServiceImpl(postRepository);
     });
 
     afterEach(async() => {
-        teardown(db);
+        await db.$executeRawUnsafe(`DROP SCHEMA IF EXISTS CASCADE;`);
+        await db.$disconnect();
     });
 
     describe("getPost", () => {
