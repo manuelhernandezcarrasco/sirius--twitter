@@ -13,7 +13,6 @@ describe('User Service Unit Testing', () => {
     });
 
     afterEach(async() => {
-        await db.$executeRawUnsafe(`DROP SCHEMA IF EXISTS CASCADE;`);
         await db.$disconnect();
     });
 
