@@ -2,9 +2,9 @@ import { CreatePostInputDTO, CreatePostResponseDTO, PostDTO } from '../dto';
 import { PostRepository } from '../repository';
 import { PostService } from '.';
 import { validate } from 'class-validator';
-import { BadRequestException, ForbiddenException, NotFoundException } from '@utils';
-import { CursorPagination } from '@types';
-import { BucketFolders, generateUploadURL } from '@utils/s3';
+import { BadRequestException, ForbiddenException, NotFoundException } from '../../../utils';
+import { CursorPagination } from '../../../types';
+import { BucketFolders, generateUploadURL } from '../../../utils/s3';
 
 export class PostServiceImpl implements PostService {
   constructor(private readonly repository: PostRepository) {}

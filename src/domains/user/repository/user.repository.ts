@@ -1,6 +1,6 @@
-import { SignupInputDTO } from '@domains/auth/dto';
-import { CreateMessageDTO } from '@domains/chat/dto';
-import { OffsetPagination } from '@types';
+import { SignupInputDTO } from '../../../domains/auth/dto';
+import { CreateMessageDTO } from '../../../domains/chat/dto';
+import { OffsetPagination } from '../../../types';
 import { ExtendedUserDTO, UserDTO } from '../dto';
 
 export interface UserRepository {

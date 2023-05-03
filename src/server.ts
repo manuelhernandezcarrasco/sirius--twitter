@@ -5,13 +5,13 @@ import cors from 'cors';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
-import { Constants, NodeEnv, Logger, socketAuth } from '@utils';
-import { router } from '@router';
-import { ErrorHandling } from '@utils/errors';
-import { swaggerOptions } from '@utils/swagger.configuration';
+import { Constants, NodeEnv, Logger, socketAuth } from './utils';
+import { router } from './router';
+import { ErrorHandling } from './utils/errors';
+import { swaggerOptions } from './utils/swagger.configuration';
 import { Server } from 'socket.io';
 import http from "http";
-import { chatSocket } from '@domains/chat/chat.websocket';
+import { chatSocket } from './domains/chat/chat.websocket';
 
 const app = express();
 const server = http.createServer(app);

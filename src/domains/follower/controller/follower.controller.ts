@@ -1,4 +1,4 @@
-import { db } from '@utils';
+import { db } from '../../../utils';
 import { Request, Response, Router } from 'express';
 import HttpStatus from 'http-status';
 import { FollowerRepositoryImpl } from '../repository';

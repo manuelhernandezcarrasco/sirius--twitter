@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import HttpStatus from 'http-status';
-import { Logger } from '@utils';
+import { Logger } from '../utils';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 
 abstract class HttpException extends Error {

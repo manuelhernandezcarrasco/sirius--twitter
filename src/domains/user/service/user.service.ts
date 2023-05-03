@@ -1,5 +1,5 @@
-import { CreateMessageDTO } from '@domains/chat/dto';
-import { OffsetPagination } from '@types';
+import { CreateMessageDTO } from '../../../domains/chat/dto';
+import { OffsetPagination } from '../../../types';
 import { UserDTO } from '../dto';
 
 export interface UserService {

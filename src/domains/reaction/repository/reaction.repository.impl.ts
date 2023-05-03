@@ -1,4 +1,4 @@
-import { PostDTO } from "@domains/post/dto";
+import { PostDTO } from "../../../domains/post/dto";
 import { PrismaClient } from "@prisma/client";
 import { ReactionDTO, Reactions } from "../dto";
 import { ReactionRepository } from "./reaction.repository";

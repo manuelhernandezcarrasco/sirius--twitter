@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { CursorPagination } from '@types';
+import { CursorPagination } from '../../../types';
 
 import { PostRepository } from '.';
 import { CreatePostInputDTO, PostDTO } from '../dto';
